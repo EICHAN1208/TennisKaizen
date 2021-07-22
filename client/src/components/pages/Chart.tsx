@@ -1,5 +1,6 @@
 import { useHistory } from "react-router"
 import { PrimaryButton } from "../atoms/button/PrimaryButton"
+import { Graph } from "../atoms/graph/Graph"
 
 export const Chart = () => {
   const history = useHistory()
@@ -14,6 +15,7 @@ export const Chart = () => {
   return (
     <>
     <p>チャートの画面</p>
+    <Graph />
     <PrimaryButton
       onClick={onClickRecord}
     >
