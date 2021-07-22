@@ -1,5 +1,6 @@
 import { useHistory } from "react-router-dom"
-import { Button, useToast } from "@chakra-ui/react"
+import { useToast } from "@chakra-ui/react"
+import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
 export const Login = () => {
   const history = useHistory();
@@ -19,15 +20,11 @@ export const Login = () => {
   return (
     <>
       <p>ログイン画面です</p>
-      <Button
-        size="md"
-        bg="green.300"
-        color="white"
-        _hover={{ opacity: 0.8 }}
+      <PrimaryButton
         onClick={onClickLogin}
       >
         ログイン
-      </Button>
+      </PrimaryButton>
     </>
   )
 }
