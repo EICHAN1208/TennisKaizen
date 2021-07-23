@@ -1,4 +1,5 @@
 import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 export const Graph = () => {
   const data = {
@@ -37,7 +38,7 @@ export const Graph = () => {
     }
 
     return (
-      <Bar
+      <Doughnut
         data={data}
         width={100}
         height={50}
