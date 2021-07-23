@@ -1,18 +1,31 @@
-import { Flex, Input, Stack, useToast } from "@chakra-ui/react"
+import { useState, memo } from "react"
+import { Flex, Input, Stack } from "@chakra-ui/react"
 import { useHistory } from "react-router-dom"
-import { PrimaryButton } from "../atoms/button/PrimaryButton"
+import axios from "axios"
 
-export const AddCategory = () => {
+import { PrimaryButton } from "../atoms/button/PrimaryButton"
+import { useMessage } from "../../hooks/useMessage"
+
+export const AddCategory = memo(() => {
   const history = useHistory()
-  const toast = useToast();
+  const { showMessage } = useMessage()
+  const [category, setCategory] = useState("")
+  const onChangeAddCategory = (e: any) => setCategory(e.target.value)
 
   const onClickAddCategory = () => {
-    history.push("/chart")
-    toast({
-      title: "カテゴリを追加しました。",
-      status: "success",
-      duration: 9000,
-      isClosable: true
+    if(category === "") {
+      showMessage({ title: "カテゴリを入力してください。", status: "error" })
+      return
+    }
+
+    axios.post("http://localhost:3000/categories", { name: category }).then((res) => {
+      if(res.status === 204) {
+        history.push("/chart")
+        showMessage({ title: "カテゴリ追加しました。", status: "success" })
+        return
+      }
+    }).catch(() => {
+      showMessage({ title: "カテゴリ追加に失敗しました。", status: "error" })
     })
   }
 
@@ -20,16 +33,17 @@ export const AddCategory = () => {
     <>
       <Flex align="center" justify="center">
         <Stack spacing={6}>
-          <p>チャートに含めるカテゴリーを追加する</p>
+          <p>チャートに含めるカテゴリを追加する</p>
           <Input
             placeholder="カテゴリ"
             size="md"
+            onChange={onChangeAddCategory}
           />
           <PrimaryButton onClick={onClickAddCategory}>
             追加
-          </PrimaryButton>
+          </PrimaryButton>
         </Stack>
       </Flex>
     </>
   )
-}
+})
