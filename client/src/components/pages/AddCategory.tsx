@@ -1,5 +1,5 @@
 import { useState, memo } from "react"
-import { Flex, Input, Stack } from "@chakra-ui/react"
+import { Flex, Input, Stack, Text } from "@chakra-ui/react"
 import { useHistory } from "react-router-dom"
 import axios from "axios"
 
@@ -31,11 +31,12 @@ export const AddCategory = memo(() => {
 
   return (
     <>
-      <Flex align="center" justify="center">
+      <Flex align="center" justify="center" height="100vh">
         <Stack spacing={6}>
-          <p>チャートに含めるカテゴリを追加する</p>
+          <Text fontSize="3xl">カテゴリ追加</Text>
           <Input
             placeholder="カテゴリ"
+            focusBorderColor="green.300"
             size="md"
             onChange={onChangeAddCategory}
           />

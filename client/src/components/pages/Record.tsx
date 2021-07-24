@@ -26,9 +26,8 @@ export const Record = () => {
         </Stack>
       </RadioGroup>
       <Textarea placeholder="メモ" />
-      <PrimaryButton onClick={onClickDisplayChart}>
-        完了
-      </PrimaryButton>
+      <PrimaryButton onClick={onClickDisplayChart}>次へ</PrimaryButton>
+      <PrimaryButton onClick={onClickDisplayChart}>スキップ</PrimaryButton>
     </>
   )
 }
