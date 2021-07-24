@@ -1,3 +1,4 @@
+import { Container } from "@chakra-ui/react"
 import { useHistory } from "react-router"
 import { PrimaryButton } from "../atoms/button/PrimaryButton"
 import { Graph } from "../atoms/graph/Graph"
@@ -14,18 +15,19 @@ export const Chart = () => {
 
   return (
     <>
-    <p>チャートの画面</p>
-    <Graph />
-    <PrimaryButton
-      onClick={onClickRecord}
-    >
-      記録する
-    </PrimaryButton>
-    <PrimaryButton
-      onClick={onClickAddCategory}
-    >
-      カテゴリ追加
-    </PrimaryButton>
-  </>
+      <Container>
+        <Graph />
+        <PrimaryButton
+          onClick={onClickRecord}
+        >
+          記録する
+        </PrimaryButton>
+        <PrimaryButton
+          onClick={onClickAddCategory}
+        >
+          カテゴリ追加
+        </PrimaryButton>
+      </Container>
+    </>
   )
 }

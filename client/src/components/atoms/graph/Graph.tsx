@@ -1,9 +1,26 @@
-import { Bar } from 'react-chartjs-2';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
 
+import { useMessage } from '../../../hooks/useMessage';
+
 export const Graph = () => {
+  const [categories, setCategories] = useState([])
+  const { showMessage } = useMessage()
+
+  const getCategories = () => {
+    axios
+      .get("http://localhost:3000/categories")
+      .then((res) => setCategories(res.data.category_names))
+      .catch(() => showMessage({ title: "表示項目の取得に失敗しました。", status: "error" }))
+  }
+
+  useEffect(() => {
+    getCategories()
+  }, [])
+
   const data = {
-    labels: ["フォアハンド", "バックハンド", "ボレー(フォア)", "ボレー(バック)", "サーブ", "リターン"],
+    labels: categories,
     datasets: [{
       label: 'Dataset',
       data: [12, 19, 3, 5, 2, 3],
