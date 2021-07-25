@@ -1,6 +1,11 @@
 import { Button } from "@chakra-ui/button"
 
-export const PrimaryButton = (props: any) => {
+type Props = {
+  onClick: () => void;
+  children: any;
+}
+
+export const PrimaryButton = (props: Props) => {
   const { onClick, children } = props;
 
   return (

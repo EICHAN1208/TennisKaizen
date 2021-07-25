@@ -9,7 +9,7 @@ import { useMessage } from "../../hooks/useMessage"
 export const AddCategory = memo(() => {
   const history = useHistory()
   const { showMessage } = useMessage()
-  const [category, setCategory] = useState("")
+  const [category, setCategory] = useState<string>("")
   const onChangeAddCategory = (e: any) => setCategory(e.target.value)
 
   const onClickAddCategory = () => {

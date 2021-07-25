@@ -5,7 +5,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { useMessage } from '../../../hooks/useMessage';
 
 export const Graph = () => {
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState<Array<string>>([])
   const { showMessage } = useMessage()
 
   const getCategories = () => {

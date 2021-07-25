@@ -5,17 +5,22 @@ import axios from "axios"
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
 
+type UserType = {
+  id: number;
+  email: string;
+}
+
 export const Login = () => {
   const history = useHistory();
   const toast = useToast();
 
-  const [userEmail, setUserEmail] = useState("")
+  const [userEmail, setUserEmail] = useState<string>("")
 
   // 入力があるたびにuserEmailに値がセットされる
   const onChangeUserEmail = (e: any) => setUserEmail(e.target.value)
 
   const onClickLogin = () => {
-    axios.get("https://jsonplaceholder.typicode.com/users").then((res) => {
+    axios.get<Array<UserType>>("https://jsonplaceholder.typicode.com/users").then((res) => {
       // some関数: 合致するものが一つでもあればtrueを返す
       const authResult = res.data.some(
         (userData: any) => userData.email === userEmail
