@@ -1,47 +1,45 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom"
-import { useToast, Input, Stack } from "@chakra-ui/react"
+import { Input, Stack } from "@chakra-ui/react"
 import axios from "axios"
 
 import { PrimaryButton } from "../atoms/button/PrimaryButton";
+import { useMessage } from "../../hooks/useMessage";
 
+// nameじゃなくて、passwordにしたい
 type UserType = {
-  id: number;
   email: string;
+  name: string;
 }
 
 export const Login = () => {
   const history = useHistory();
-  const toast = useToast();
+  const { showMessage } = useMessage();
 
-  const [userEmail, setUserEmail] = useState<string>("")
+  const [userEmail, setUserEmail] = useState<string>("");
+  const [userPassword, setUserPassword] = useState<string>("");
 
   // 入力があるたびにuserEmailに値がセットされる
-  const onChangeUserEmail = (e: any) => setUserEmail(e.target.value)
+  const onChangeUserEmail = (e: any) => setUserEmail(e.target.value);
+  const onChangeUserPassword = (e: any) => setUserPassword(e.target.value);
 
   const onClickLogin = () => {
     axios.get<Array<UserType>>("https://jsonplaceholder.typicode.com/users").then((res) => {
-      // some関数: 合致するものが一つでもあればtrueを返す
-      const authResult = res.data.some(
-        (userData: any) => userData.email === userEmail
-      )
+      console.log(res.data);
+      const auth = () => {
+        if ((res.data[0].name === userPassword) && (res.data[0].email === userEmail)) {
+          return true;
+        } else {
+          return false;
+        }
+      }
+      const authResult = auth();
 
       if(authResult) {
         history.push("/chart")
-        toast({
-          title: "ログインしました。",
-          description: "今日のテニスはいかがでしたか?",
-          status: "success",
-          duration: 9000,
-          isClosable: true
-        })
+        showMessage({ title: "ログインしました。", status: "success" })
       } else {
-        toast({
-          title: "認証に失敗しました。",
-          status: "error",
-          duration: 9000,
-          isClosable: true
-        })
+        showMessage({ title: "認証に失敗しました。", status: "error" })
       }
     }).catch(() => alert())
   };
@@ -53,9 +51,11 @@ export const Login = () => {
         <Input
           placeholder="email"
           size="md"
-          onChange={onChangeUserEmail}
-        />
-        <Input placeholder="password" size="md" />
+          onChange={onChangeUserEmail} />
+        <Input
+          placeholder="password"
+          size="md"
+          onChange={onChangeUserPassword} />
       </Stack>
       <PrimaryButton
         onClick={onClickLogin}
